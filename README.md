@@ -1,16 +1,16 @@
 # wray-gal
 An inline image/video gallery
 
-To run, simply use:
+To run, simply use:<br />
 $('.wrayGal').wrayGal();
 <br />
 <br />
 
-Options (and default values):
-  captions: false,
-  steps: false,
-  video: false,
-  animateHeight: false,
+Options (and default values):<br />
+  captions: false,<br />
+  steps: false,<br />
+  video: false,<br />
+  animateHeight: false,<br />
   fade: false
 <br />
 <br />
