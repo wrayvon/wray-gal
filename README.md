@@ -1,6 +1,10 @@
 # wray-gal
 An inline image/video gallery
 
+Working example here:<br />
+<a href="http://wray-designs.co.uk/wray-gal/">http://wray-designs.co.uk/wray-gal/</a><br /><br />
+
+
 To run, simply use:<br />
 $('.wrayGal').wrayGal();
 <br />
