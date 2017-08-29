@@ -5,15 +5,15 @@ APP.wrayGal = (function ($) {
 
   var init = function() {
 
-    $('.wrayGal').wrayGal({
+    $('.wraygal').wrayGal({
       captions: true
     });
 
- };
+  };
 
 
-return { 
-  init: init
-};
+  return { 
+    init: init
+  };
 
 })(jQuery);
