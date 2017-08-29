@@ -4,6 +4,7 @@ An inline image/video gallery
 To run, simply use:
 $('.wrayGal').wrayGal();
 
+
 Options (and default values):
   captions: false,
   steps: false,
@@ -11,6 +12,7 @@ Options (and default values):
   animateHeight: false,
   fade: false
  
+What the options do:
 Captions uses the alt tag of the image to display as a caption
 
 Steps makes the images load in 1 by 1
