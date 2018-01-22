@@ -1,17 +1,15 @@
 window.APP = window.APP || {};
 
 $(function() {
-  'use strict';
-  APP.wrayGal.init();
+  APP.wraygal.init();
 });
 // var APP = APP || {};
 
-APP.wrayGal = (function ($) {
-  'use strict';
+APP.wraygal = (function ($) {
 
   var init = function() {
 
-    $('.wraygal').wrayGal({
+    $('.wraygal').wraygal({
       captions: true
     });
 

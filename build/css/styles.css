@@ -1,5 +1,6 @@
 .wraygal {
   text-align: center;
+  -webkit-transition: height ease-out 2s;
   transition: height ease-out 2s; }
 
 .wraygal__thumbs img {
@@ -15,6 +16,7 @@
   float: left;
   margin: 0 3% 3% 0;
   width: 48.5%;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: relative; }
   .wraygal__thumb span {
@@ -53,8 +55,9 @@
     font-family: 'FontAwesome';
     top: 50%;
     left: 50%;
-    -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     font-size: 50px; }
   .wraygal__thumb:nth-child(2n) {
     margin-right: 0; }
@@ -128,6 +131,7 @@
 .wraygal__next {
   cursor: pointer;
   font-size: 20px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   background: #fff;
   border-radius: 50%;
@@ -139,6 +143,7 @@
   .wraygal__close:before,
   .wraygal__prev:before,
   .wraygal__next:before {
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
     position: absolute;
     top: 50%;

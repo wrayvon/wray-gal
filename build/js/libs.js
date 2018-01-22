@@ -2,7 +2,7 @@
 //Sam Wray 
 //Wray Gallery - v2.1 - 24.08.17
  (function ( $ ) {
-   $.fn.wrayGal = function(options) {
+   $.fn.wraygal = function(options) {
     var imgNumber = '';
     var settings = $.extend ({
       //These are the defaults
@@ -16,19 +16,19 @@
     return this.each(function() {
       var self = $(this);
       //if has captions, add caption div
-      //if ($(self).hasClass('wrayGal__caption')) {
+      //if ($(self).hasClass('wraygal__caption')) {
       if (settings.captions == true) {
-        $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').after('<div class="wrayGal__caption"></div>');
+        $(self).find('.wraygal__overlay .wraygal__overlay-inner img').after('<div class="wraygal__caption"></div>');
       }
 
       //each thumbnail loads 1 after another
-      // if ($(self).hasClass('wrayGal--steps')) {
+      // if ($(self).hasClass('wraygal--steps')) {
         if (settings.steps == true) {
           var page1 = function () {
             var i = 0;
 
               //sets opacity on thumbs to 0
-              var lis = $(self).find('.wrayGal__thumbs img').css('opacity', '0');
+              var lis = $(self).find('.wraygal__thumbs img').css('opacity', '0');
 
               //displays each thumbnail 1 by 1
               (function displayImages() {
@@ -46,15 +46,17 @@
       //set current item
       var currentItem = 0;
 
-      var amountOfImg = $(self).find('.wrayGal__thumbs img').length - 1;
+      var amountOfImg = $(self).find('.wraygal__thumbs img').length - 1;
 
       var totalAmount = amountOfImg + 1;
 
-      $(self).find('.wrayGal__total').append(totalAmount);
+      $(self).find('.wraygal__total').append(totalAmount);
 
       var containerHeight = $(self).parent().height();
 
-      $(self).find('.wrayGal__thumb').click(function () {
+      var $thumb = $(self).find('.wraygal__thumb');
+
+      $($thumb).click(function () {
         containerHeight = $(self).height();
 
         var imgIndex = $(this).index();
@@ -62,16 +64,16 @@
 
         imgNumber = currentItem + 1
 
-        $(self).find('.wrayGal__current').html('').append(imgNumber);
+        $(self).find('.wraygal__current').html('').append(imgNumber);
 
 
 
-        // if ($(this).hasClass('wrayGal__video')) {
+        // if ($(this).hasClass('wraygal__video')) {
           if (settings.video == true) {
             var videoUrl = $(this).children('img').attr('data-source');
-            $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + videoUrl + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wrayGal__number"><span class="wrayGal__current"></span>/<span class="wrayGal__total"></span></div><span class="wrayGal__next"></span><span class="wrayGal__prev"></span></div></div></div>').insertBefore($('.wrayGal__thumbs'));
-            $('.wrayGal__total').html('').append(totalAmount);
-            $('.wrayGal__current').html('').append(imgNumber);
+            $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + videoUrl + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
+            $('.wraygal__total').html('').append(totalAmount);
+            $('.wraygal__current').html('').append(imgNumber);
 
           }
           else {
@@ -80,34 +82,34 @@
 
 
             //sets the image to the hidden overlay image
-            $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('img').attr("src", imgSrc);
+            $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('img').attr("src", imgSrc);
 
             //if has captions, the add the caption to the caption div
-            // if ($(self).hasClass('wrayGal__caption')) {
+            // if ($(self).hasClass('wraygal__caption')) {
             if (settings.captions == true) {
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').html('');
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
               var imgCaption = $(this).children('img').attr('alt');
 
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').append(imgCaption);
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
 
-            $(self).find('.wrayGal__overlay').fadeIn();
-            $(self).find('.wrayGal__nav').fadeIn();
-            $(self).find('.wrayGal__overlay img').fadeIn();
+            $(self).find('.wraygal__overlay').fadeIn();
+            $(self).find('.wraygal__nav').fadeIn();
+            $(self).find('.wraygal__overlay img').fadeIn();
 
 
             // //fades out the thumbnails then fades in the overlay image and nav
-            // $(self).find('.wrayGal__thumbs').fadeOut(400, function () {
-            //     $(self).find('.wrayGal__overlay').fadeIn(400, function () {
-            //         $(self).find('.wrayGal__nav').fadeIn(400);
+            // $(self).find('.wraygal__thumbs').fadeOut(400, function () {
+            //     $(self).find('.wraygal__overlay').fadeIn(400, function () {
+            //         $(self).find('.wraygal__nav').fadeIn(400);
             //     });
 
             // });
           }
         });
 
-      $(self).find('.wrayGal__thumbs span').click(function () {
+      $(self).find('.wraygal__thumbs span').click(function () {
         containerHeight = $(self).parent().height();
 
         var imgIndex = $(this).parent().index();
@@ -115,38 +117,38 @@
 
         imgNumber = currentItem + 1
 
-        $(self).find('.wrayGal__current').html('').append(imgNumber);
+        $(self).find('.wraygal__current').html('').append(imgNumber);
 
           //gets image data source of clicked image
           var imgSrc = $(this).siblings('img').attr('data-source');
 
           //sets the image to the hidden overlay image
-          $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('img').attr("src", imgSrc);
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('img').attr("src", imgSrc);
 
           //if has captions, the add the caption to the caption div
-          // if ($(self).hasClass('wrayGal__caption')) {
+          // if ($(self).hasClass('wraygal__caption')) {
             if (settings.captions == true) {
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').html('');
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
               var imgCaption = $(this).siblings('img').attr('alt');
 
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').append(imgCaption);
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
 
-            $(self).find('.wrayGal__overlay').fadeIn();
-            $(self).find('.wrayGal__nav').fadeIn();
+            $(self).find('.wraygal__overlay').fadeIn();
+            $(self).find('.wraygal__nav').fadeIn();
 
           // //fades out the thumbnails then fades in the overlay image and nav
-          // $(self).find('.wrayGal__thumbs').fadeOut(400, function () {
-          //     $(self).find('.wrayGal__overlay').fadeIn(400, function () {
-          //         $(self).find('.wrayGal__nav').fadeIn(400);
+          // $(self).find('.wraygal__thumbs').fadeOut(400, function () {
+          //     $(self).find('.wraygal__overlay').fadeIn(400, function () {
+          //         $(self).find('.wraygal__nav').fadeIn(400);
           //     });
 
           // });
 
         });
 
-      $('body').on('click', '.wrayGal__next', function () {
+      $('body').on('click', '.wraygal__next', function () {
           //increments currentItem 1
           if (currentItem === amountOfImg) {
             currentItem = 0;
@@ -158,11 +160,11 @@
 
           imgNumber = currentItem + 1
 
-          $(self).find('.wrayGal__current').html('').append(imgNumber);
+          $(self).find('.wraygal__current').html('').append(imgNumber);
 
 
-          $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').fadeOut(300, function () {
-            var imgSrc = $(self).find('.wrayGal__thumbs img').eq(currentItem).attr('data-source');
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeOut(300, function () {
+            var imgSrc = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('data-source');
 
             if (/youtube/i.test(imgSrc)) {
               var videoUrl = $(this).children('img').attr('data-source');
@@ -173,38 +175,38 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wrayGal__number"><span class="wrayGal__current"></span>/<span class="wrayGal__total"></span></div><span class="wrayGal__next"></span><span class="wrayGal__prev"></span></div></div></div>').insertBefore($('.wrayGal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
 
-            $(self).find('.wrayGal__total').html('').append(totalAmount);
-            $(self).find('.wrayGal__current').html('').append(imgNumber);
+            $(self).find('.wraygal__total').html('').append(totalAmount);
+            $(self).find('.wraygal__current').html('').append(imgNumber);
           }
           else {
           //if previous was a video remove it and show the image gallery again
           // if ($('.video-gallery').length) {
             if (settings.video == true) {
               $(self).find('.video-gallery').remove();
-              $(self).find('.wrayGal__overlay').show();
+              $(self).find('.wraygal__overlay').show();
             }
               //sets it to the hidden overlay image
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').attr("src", imgSrc);
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner img').attr("src", imgSrc);
                 //fades in new image
-                $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').fadeIn(300);
+                $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeIn(300);
               }
 
             })
 
           //change caption if it has one
-          // if ($(self).hasClass('wrayGal__caption')) {
+          // if ($(self).hasClass('wraygal__caption')) {
             if (settings.captions == true) {
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').html('');
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
-              var imgCaption = $(self).find('.wrayGal__thumbs img').eq(currentItem).attr('alt');
-              $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').append(imgCaption);
+              var imgCaption = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('alt');
+              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
           });
 
-      $('body').on('click', '.wrayGal__prev', function () {
+      $('body').on('click', '.wraygal__prev', function () {
           //decreases currentItem by 1
           if (currentItem === 0) {
             currentItem = amountOfImg;
@@ -216,10 +218,10 @@
 
           imgNumber = currentItem + 1
 
-          $(self).find('.wrayGal__current').html('').append(imgNumber);
+          $(self).find('.wraygal__current').html('').append(imgNumber);
 
-          $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').fadeOut(400, function () {
-            var imgSrc = $(self).find('.wrayGal__thumbs img').eq(currentItem).attr('data-source');
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeOut(400, function () {
+            var imgSrc = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('data-source');
 
             if (/youtube/i.test(imgSrc)) {
               var videoUrl = $(this).children('img').attr('data-source');
@@ -230,40 +232,40 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wrayGal__number"><span class="wrayGal__current"></span>/<span class="wrayGal__total"></span></div><span class="wrayGal__next"></span><span class="wrayGal__prev"></span></div></div></div>').insertBefore($('.wrayGal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
-            $(self).find('.wrayGal__total').html('').append(totalAmount);
-            $(self).find('.wrayGal__current').html('').append(imgNumber);
+            $(self).find('.wraygal__total').html('').append(totalAmount);
+            $(self).find('.wraygal__current').html('').append(imgNumber);
           }
           else {
 
             //if previous was a video remove it and show the image gallery again
             if ($(self).find('.video-gallery').length) {
               $(self).find('.video-gallery').remove();
-              $(self).find('.wrayGal__overlay').show();
+              $(self).find('.wraygal__overlay').show();
             }
             //sets it to the hidden overlay image
-            $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').attr("src", imgSrc);
+            $(self).find('.wraygal__overlay .wraygal__overlay-inner img').attr("src", imgSrc);
             //fades in new image
-            $(self).find('.wrayGal__overlay .wrayGal__overlay-inner img').fadeIn();
+            $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeIn();
           }
 
         })
 
         //changes caption if it has one
-        // if ($(self).hasClass('wrayGal__caption')) {
+        // if ($(self).hasClass('wraygal__caption')) {
         if (settings.captions == true) {
-          $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').html('');
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
-          var imgCaption = $(self).find('.wrayGal__thumbs img').eq(currentItem).attr('alt');
-          $(self).find('.wrayGal__overlay .wrayGal__overlay-inner').children('.wrayGal__caption').append(imgCaption);
+          var imgCaption = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('alt');
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
         }
       });
 
 
         //closes the overlay and shows the thumbnails again
-        $('body').on('click', '.wrayGal__close', function () {
-          // if ($(self).hasClass('wrayGal--animate-height')) {
+        $('body').on('click', '.wraygal__close', function () {
+          // if ($(self).hasClass('wraygal--animate-height')) {
           if (settings.animateHeight == true) {
             $(self).parent().animate({ height: containerHeight }, 400, function () {
               setTimeout(function () { $(self).parent().removeAttr('style'); }, 1000);
@@ -271,15 +273,15 @@
           }
 
             //fades out big image
-            $(self).find('.wrayGal__overlay').fadeOut(400, function () {
+            $(self).find('.wraygal__overlay').fadeOut(400, function () {
 
                 //shows thumbnails again
-                $(self).find('.wrayGal__thumbs').show();
+                $(self).find('.wraygal__thumbs').show();
 
               if (settings.fade == true) {
-                // if ($(self).hasClass('wrayGal--fade')) {
+                // if ($(self).hasClass('wraygal--fade')) {
                     //sets opacity on thumbs to 0
-                    var lis = $(self).find('.wrayGal__thumbs img').css('opacity', '0');
+                    var lis = $(self).find('.wraygal__thumbs img').css('opacity', '0');
 
                     lis.animate({
                       opacity: '1'
@@ -287,13 +289,13 @@
                   }
 
 
-                  // if ($(self).hasClass('wrayGal--steps')) {
+                  // if ($(self).hasClass('wraygal--steps')) {
                   if (settings.steps == true) {
                     var page1 = function () {
                       var i = 0;
 
                         //sets opacity on thumbs to 0
-                        var lis = $(self).find('.wrayGal__thumbs img').css('opacity', '0');
+                        var lis = $(self).find('.wraygal__thumbs img').css('opacity', '0');
 
                         //displays each thumbnail 1 by 1
                         (function displayImages() {
