@@ -6,7 +6,7 @@ Working example here:<br />
 
 
 To run, simply use:<br />
-$('.wraygal').wrayGal();
+$('.wraygal').wraygal();
 <br />
 <br />
 
