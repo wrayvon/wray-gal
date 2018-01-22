@@ -94,9 +94,10 @@
               $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
 
-            $(self).find('.wraygal__overlay').fadeIn();
+            $(self).find('.wraygal__overlay').fadeIn().attr('tabindex', '0').focus();
             $(self).find('.wraygal__nav').fadeIn();
             $(self).find('.wraygal__overlay img').fadeIn();
+
 
 
             // //fades out the thumbnails then fades in the overlay image and nav
@@ -109,7 +110,7 @@
           }
         });
 
-      $(self).find('.wraygal__thumbs span').click(function () {
+      $(self).find('.wraygal__thumbs .wraygal__open-btn').click(function () {
         containerHeight = $(self).parent().height();
 
         var imgIndex = $(this).parent().index();
@@ -175,7 +176,7 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" class="wraygal__next"></button><button type="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
 
             $(self).find('.wraygal__total').html('').append(totalAmount);
@@ -232,7 +233,7 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" class="wraygal__next"></button><button type="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
             $(self).find('.wraygal__total').html('').append(totalAmount);
             $(self).find('.wraygal__current').html('').append(imgNumber);

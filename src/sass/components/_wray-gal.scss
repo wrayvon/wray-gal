@@ -13,8 +13,10 @@
     width: 100%;
   }
 
-  span:hover + img,
-  img:hover {
+  .wraygal__open-btn:hover + img,
+  img:hover,
+  .wraygal__open-btn:focus + img,
+  img:focus {
     border-color: blue;
   }
 }
@@ -26,7 +28,7 @@
   transition: all 0.3s ease;
   position: relative;
 
-  span {
+  .wraygal__open-btn {
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -34,9 +36,14 @@
     width: 40px;
     height: 40px;
     display: block;
+    background: none;
+    border: none;
+    color: transparent;
+    outline: none;
+    font-size: 0;
   }
 
-  span:before {
+  .wraygal__open-btn:before {
     content: '';
     width: 40px;
     height: 40px;
@@ -49,7 +56,7 @@
     display: block;
   }
 
-  span:after {
+  .wraygal__open-btn:after {
     content: ' \f065';
     position: absolute;
     top: 5px;
@@ -166,7 +173,6 @@
 .wraygal__prev,
 .wraygal__next {
   cursor: pointer;
-  font-size: 20px;
   transition: all 0.3s ease;
   background: #fff;
   border-radius: 50%;
@@ -175,6 +181,10 @@
   display: block;
   position: relative;
   margin: 0 auto 20px;
+  color: transparent;
+  font-size: 0;
+  border: none;
+  outline: none;
 
   &:before {
     transition: all 0.3s ease;
@@ -184,9 +194,11 @@
     font-family: 'FontAwesome';
     color: blue;
     margin: -11px 0 0 -7px;
+    font-size: 20px;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: blue;
 
     &:before {
