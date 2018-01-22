@@ -110,6 +110,25 @@
           }
         });
 
+      $(document).keyup(function(e) {
+          //Close overlay on press of escape key
+          if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('.wraygal__close').click();
+          }
+
+          //go to previous item on press of left key
+          if (e.keyCode == 37) { // left key
+            $('.wraygal__prev').click();
+          }
+
+          //go to next item on press of left key
+          if (e.keyCode == 39) { // right key
+            $('.wraygal__next').click();
+          }
+      });
+
+
+
       $(self).find('.wraygal__thumbs .wraygal__open-btn').click(function () {
         containerHeight = $(self).parent().height();
 
