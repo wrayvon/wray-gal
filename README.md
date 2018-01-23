@@ -4,6 +4,26 @@ An inline image/video gallery
 Working example here:<br />
 <a href="http://gallery.wray-designs.co.uk/">http://gallery.wray-designs.co.uk/</a><br /><br />
 
+Code example:<br />
+```
+<div class="wraygal">
+  <ul class="wraygal__thumbs clearfix">
+    <li class="wraygal__thumb">
+      <a href="/images/example1.jpg">
+          <img src="/images/example1-thumb.jpg" data-source="/images/example1.jpg" alt="Alt tag" />
+      </a>
+    </li>
+    <li class="wraygal__thumb">
+      <a href="/images/example1.jpg">
+          <img src="/images/example1-thumb.jpg" data-source="/images/example1.jpg" alt="Alt tag" />
+      </a>
+    </li>
+  </ul>
+</div>
+```
+
+<br /><br />
+
 
 To run, simply use:<br />
 $('.wraygal').wraygal();
