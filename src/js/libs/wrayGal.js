@@ -15,6 +15,10 @@
 
     return this.each(function() {
       var self = $(this);
+
+      //Create overlay
+      $(this).prepend('<div class="wraygal__overlay"><div class="wraygal__overlay-inner"><img src="/images/example1.jpg" alt="" /><div class="wraygal__nav"><button type="button" class="wraygal__close">Close</button><div class="wraygal__number"><span class="wraygal__current"></span>/ <span class="wraygal__total"></span></div><button type="button" class="wraygal__next">Next item</button><button type="button" class="wraygal__prev">Previous item</button></div></div></div>');
+
       //if has captions, add caption div
       //if ($(self).hasClass('wraygal__caption')) {
       if (settings.captions == true) {
