@@ -1,6 +1,6 @@
 
 //Sam Wray 
-//Wray Gallery - v2.1 - 24.08.17
+//Wray Gallery - v2.3 - 24.08.17
  (function ( $ ) {
    $.fn.wraygal = function(options) {
     var imgNumber = '';
@@ -20,6 +20,10 @@
       if (settings.captions == true) {
         $(self).find('.wraygal__overlay .wraygal__overlay-inner img').after('<div class="wraygal__caption"></div>');
       }
+
+      // if (settings.arrowBtn == true) {
+      //   $(self).find('.wraygal__thumb a').prepend('<button type="button" class="wraygal__open-btn">Open overlay</button>');
+      // }
 
       //each thumbnail loads 1 after another
       // if ($(self).hasClass('wraygal--steps')) {
@@ -54,19 +58,20 @@
 
       var containerHeight = $(self).parent().height();
 
-      var $thumb = $(self).find('.wraygal__thumb');
+      var $thumb = $(self).find('.wraygal__thumb a');
 
       $($thumb).click(function () {
+
         containerHeight = $(self).height();
 
-        var imgIndex = $(this).index();
+        var imgIndex = $(this).parent().index();
         currentItem = imgIndex;
 
         imgNumber = currentItem + 1
 
         $(self).find('.wraygal__current').html('').append(imgNumber);
 
-
+        $(this).parent().addClass('wraygal__thumb--active');
 
         // if ($(this).hasClass('wraygal__video')) {
           if (settings.video == true) {
@@ -108,6 +113,9 @@
 
             // });
           }
+
+        return false;
+
         });
 
       $(document).keyup(function(e) {
@@ -140,17 +148,17 @@
         $(self).find('.wraygal__current').html('').append(imgNumber);
 
           //gets image data source of clicked image
-          var imgSrc = $(this).siblings('img').attr('data-source');
+          var imgSrc = $(this).parent().find('img').attr('data-source');
 
           //sets the image to the hidden overlay image
-          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('img').attr("src", imgSrc);
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner').parent().find('img').attr("src", imgSrc);
 
           //if has captions, the add the caption to the caption div
           // if ($(self).hasClass('wraygal__caption')) {
             if (settings.captions == true) {
               $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
-              var imgCaption = $(this).siblings('img').attr('alt');
+              var imgCaption = $(this).parent().find('img').attr('alt');
 
               $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
@@ -182,9 +190,16 @@
 
           $(self).find('.wraygal__current').html('').append(imgNumber);
 
+          var prevItem = $('.wraygal__thumb--active');
+          prevItem.removeClass('wraygal__thumb--active').next('.wraygal__thumb').addClass('wraygal__thumb--active');
+
 
           $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeOut(300, function () {
             var imgSrc = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('data-source');
+
+            //remove current active class then add it to the new one
+            $('.wraygal__thumb--active').removeClass('wraygal__thumb--active');
+            $(self).find('.wraygal__thumbs .wraygal__thumb').eq(currentItem).addClass('wraygal__thumb--active');
 
             if (/youtube/i.test(imgSrc)) {
               var videoUrl = $(this).children('img').attr('data-source');
@@ -243,6 +258,10 @@
           $(self).find('.wraygal__overlay .wraygal__overlay-inner img').fadeOut(400, function () {
             var imgSrc = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('data-source');
 
+            //remove current active class then add it to the new one
+            $('.wraygal__thumb--active').removeClass('wraygal__thumb--active');
+            $(self).find('.wraygal__thumbs .wraygal__thumb').eq(currentItem).addClass('wraygal__thumb--active');
+
             if (/youtube/i.test(imgSrc)) {
               var videoUrl = $(this).children('img').attr('data-source');
                 //if previous was a video just change the iframe
@@ -295,8 +314,16 @@
             //fades out big image
             $(self).find('.wraygal__overlay').fadeOut(400, function () {
 
+
+
                 //shows thumbnails again
                 $(self).find('.wraygal__thumbs').show();
+
+                //focus on current active thumb
+                $('.wraygal__thumb--active a').focus();
+
+                //remove active class
+                $('.wraygal__thumb--active').removeClass('wraygal__thumb--active');
 
               if (settings.fade == true) {
                 // if ($(self).hasClass('wraygal--fade')) {
