@@ -1,10 +1,10 @@
 
 //Sam Wray 
 //Wray Gallery - v2.3 - 24.08.17
- (function ( $ ) {
-   $.fn.wraygal = function(options) {
-    var imgNumber = '';
-    var settings = $.extend ({
+(function ( $ ) {
+ $.fn.wraygal = function(options) {
+  var imgNumber = '';
+  var settings = $.extend ({
       //These are the defaults
       captions: false,
       steps: false,
@@ -13,17 +13,17 @@
       fade: false
     }, options);
 
-    return this.each(function() {
-      var self = $(this);
+  return this.each(function() {
+    var self = $(this);
 
       //Create overlay
-      $(this).prepend('<div class="wraygal__overlay"><div class="wraygal__overlay-inner"><img src="/images/example1.jpg" alt="" /><div class="wraygal__nav"><button type="button" class="wraygal__close">Close</button><div class="wraygal__number"><span class="wraygal__current"></span>/ <span class="wraygal__total"></span></div><button type="button" class="wraygal__next">Next item</button><button type="button" class="wraygal__prev">Previous item</button></div></div></div>');
+      $(this).prepend('<div class="wraygal__overlay" aria-modal="true"><div class="wraygal__overlay-inner"><img src="/images/example1.jpg" alt="" aria-role="figure" /><div class="wraygal__nav"><button type="button" aria-role="button" class="wraygal__close">Close</button><div class="wraygal__number"><span class="wraygal__current"></span>/ <span class="wraygal__total"></span></div><button type="button" aria-role="button" class="wraygal__next">Next item</button><button type="button" aria-role="button" class="wraygal__prev">Previous item</button></div></div></div>');
 
       //if has captions, add caption div
       //if ($(self).hasClass('wraygal__caption')) {
-      if (settings.captions == true) {
-        $(self).find('.wraygal__overlay .wraygal__overlay-inner img').after('<div class="wraygal__caption"></div>');
-      }
+        if (settings.captions == true) {
+          $(self).find('.wraygal__overlay .wraygal__overlay-inner img').after('<div class="wraygal__caption" aria-label></div>');
+        }
 
       // if (settings.arrowBtn == true) {
       //   $(self).find('.wraygal__thumb a').prepend('<button type="button" class="wraygal__open-btn">Open overlay</button>');
@@ -80,7 +80,7 @@
         // if ($(this).hasClass('wraygal__video')) {
           if (settings.video == true) {
             var videoUrl = $(this).children('img').attr('data-source');
-            $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + videoUrl + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><span class="wraygal__next"></span><span class="wraygal__prev"></span></div></div></div>').insertBefore($('.wraygal__thumbs'));
+            $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + videoUrl + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><span class="video-gallery__close"></span><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" aria-role="button" class="wraygal__next"></button><button type="button" aria-role="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
             $('.wraygal__total').html('').append(totalAmount);
             $('.wraygal__current').html('').append(imgNumber);
 
@@ -95,17 +95,17 @@
 
             //if has captions, the add the caption to the caption div
             // if ($(self).hasClass('wraygal__caption')) {
-            if (settings.captions == true) {
-              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
+              if (settings.captions == true) {
+                $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
-              var imgCaption = $(this).children('img').attr('alt');
+                var imgCaption = $(this).children('img').attr('alt');
 
-              $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
-            }
+                $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
+              }
 
-            $(self).find('.wraygal__overlay').fadeIn().attr('tabindex', '0').focus();
-            $(self).find('.wraygal__nav').fadeIn();
-            $(self).find('.wraygal__overlay img').fadeIn();
+              $(self).find('.wraygal__overlay').addClass('wraygal__overlay--active').fadeIn().attr('tabindex', '0').focus();
+              $(self).find('.wraygal__nav').fadeIn();
+              $(self).find('.wraygal__overlay img').fadeIn();
 
 
 
@@ -118,7 +118,7 @@
             // });
           }
 
-        return false;
+          return false;
 
         });
 
@@ -137,7 +137,14 @@
           if (e.keyCode == 39) { // right key
             $('.wraygal__next').click();
           }
-      });
+
+          //if you tab from the overlay and go out of it, it focuses back into it
+          if (e.keyCode == 9) { // tab key
+            if (!$('*:focus').closest('.wraygal__overlay').length && $('.wraygal__overlay--active').length) {
+              $('.wraygal__overlay--active').focus();
+            }
+          }
+        });
 
 
 
@@ -167,7 +174,7 @@
               $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
             }
 
-            $(self).find('.wraygal__overlay').fadeIn();
+            $(self).find('.wraygal__overlay').fadeIn().addClass('wraygal__overlay--active');
             $(self).find('.wraygal__nav').fadeIn();
 
           // //fades out the thumbnails then fades in the overlay image and nav
@@ -214,7 +221,7 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" class="wraygal__next"></button><button type="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" aria-role="button" class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" aria-role="button" class="wraygal__next"></button><button type="button" aria-role="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
 
             $(self).find('.wraygal__total').html('').append(totalAmount);
@@ -225,7 +232,7 @@
           // if ($('.video-gallery').length) {
             if (settings.video == true) {
               $(self).find('.video-gallery').remove();
-              $(self).find('.wraygal__overlay').show();
+              $(self).find('.wraygal__overlay').show().addClass('wraygal__overlay--active');
             }
               //sets it to the hidden overlay image
               $(self).find('.wraygal__overlay .wraygal__overlay-inner img').attr("src", imgSrc);
@@ -275,7 +282,7 @@
                 }
             //otherwise add the video gallery HTML in again
             else {
-              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" class="wraygal__next"></button><button type="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
+              $('<div class="video-gallery"><div class="video-gallery__overlay-inner"><div class="videowrapper"><iframe class="video-iframe" src="' + imgSrc + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div><div class="video-gallery__nav"><button type="button" aria-role="button"  class="video-gallery__close"></button><div class="wraygal__number"><span class="wraygal__current"></span>/<span class="wraygal__total"></span></div><button type="button" aria-role="button" class="wraygal__next"></button><button aria-role="button" type="button" class="wraygal__prev"></button></div></div></div>').insertBefore($('.wraygal__thumbs'));
             }
             $(self).find('.wraygal__total').html('').append(totalAmount);
             $(self).find('.wraygal__current').html('').append(imgNumber);
@@ -285,7 +292,7 @@
             //if previous was a video remove it and show the image gallery again
             if ($(self).find('.video-gallery').length) {
               $(self).find('.video-gallery').remove();
-              $(self).find('.wraygal__overlay').show();
+              $(self).find('.wraygal__overlay').show().addClass('wraygal__overlay--active');
             }
             //sets it to the hidden overlay image
             $(self).find('.wraygal__overlay .wraygal__overlay-inner img').attr("src", imgSrc);
@@ -297,28 +304,26 @@
 
         //changes caption if it has one
         // if ($(self).hasClass('wraygal__caption')) {
-        if (settings.captions == true) {
-          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
+          if (settings.captions == true) {
+            $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').html('');
 
-          var imgCaption = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('alt');
-          $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
-        }
-      });
+            var imgCaption = $(self).find('.wraygal__thumbs img').eq(currentItem).attr('alt');
+            $(self).find('.wraygal__overlay .wraygal__overlay-inner').children('.wraygal__caption').append(imgCaption);
+          }
+        });
 
 
         //closes the overlay and shows the thumbnails again
         $('body').on('click', '.wraygal__close', function () {
           // if ($(self).hasClass('wraygal--animate-height')) {
-          if (settings.animateHeight == true) {
-            $(self).parent().animate({ height: containerHeight }, 400, function () {
-              setTimeout(function () { $(self).parent().removeAttr('style'); }, 1000);
-            });
-          }
+            if (settings.animateHeight == true) {
+              $(self).parent().animate({ height: containerHeight }, 400, function () {
+                setTimeout(function () { $(self).parent().removeAttr('style'); }, 1000);
+              });
+            }
 
             //fades out big image
-            $(self).find('.wraygal__overlay').fadeOut(400, function () {
-
-
+            $(self).find('.wraygal__overlay').removeClass('wraygal__overlay--active').fadeOut(400, function () {
 
                 //shows thumbnails again
                 $(self).find('.wraygal__thumbs').show();
@@ -329,7 +334,7 @@
                 //remove active class
                 $('.wraygal__thumb--active').removeClass('wraygal__thumb--active');
 
-              if (settings.fade == true) {
+                if (settings.fade == true) {
                 // if ($(self).hasClass('wraygal--fade')) {
                     //sets opacity on thumbs to 0
                     var lis = $(self).find('.wraygal__thumbs img').css('opacity', '0');
@@ -341,9 +346,9 @@
 
 
                   // if ($(self).hasClass('wraygal--steps')) {
-                  if (settings.steps == true) {
-                    var page1 = function () {
-                      var i = 0;
+                    if (settings.steps == true) {
+                      var page1 = function () {
+                        var i = 0;
 
                         //sets opacity on thumbs to 0
                         var lis = $(self).find('.wraygal__thumbs img').css('opacity', '0');

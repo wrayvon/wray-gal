@@ -6,6 +6,16 @@
   transition: height ease-out 2s;
 }
 
+.disabled-tabbing {
+  * {
+    pointer-events: none;
+  }
+
+  .wraygal__overlay--active {
+    pointer-events: auto;
+  }
+}
+
 .wraygal__thumbs {
   list-style: none;
   padding: 0;
