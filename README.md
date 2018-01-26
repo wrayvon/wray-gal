@@ -38,6 +38,12 @@ Options (and default values):<br />
   fade: false
 <br />
 <br />
+
+To destroy:<br />
+Simply run <br />
+```
+$('.wraygal').wraygal.destroy();
+```
  
 
 What the options do:<br />
